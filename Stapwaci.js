@@ -9,9 +9,15 @@ let displayHours = 0;
 let interval = null;
 let status = "stopped";
 
+let actualSeconds = 0;
+let beginWorkout = new Audio('pune link');
+let restWorkout = new Audio('pune link');
+
+//Stopwatch code + display
 function stopWatch(){
 
         seconds++;
+        actualSeconds++;
         milliseconds = 0;
         if(seconds == 60){
             minutes++;
@@ -39,6 +45,7 @@ function stopWatch(){
     document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
 }
 
+//the buttons
 function startStop(){
 
     if(status === "stopped"){
@@ -60,3 +67,16 @@ function reset(){
     hours = 0;
     document.getElementById("display").innerHTML = "00:00:00";
 }
+
+window.addEventListener("keydown", checkKeyPress, false);
+
+function checkKeyPress(key){
+    if(key.keyCode == "32"){
+        startStop();
+    }else if(key.keyCode == "17"){
+        reset();
+    }
+    
+}
+
+beginWorkout.play();
