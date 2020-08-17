@@ -9,40 +9,74 @@ let displayHours = 0;
 let interval = null;
 let status = "stopped";
 
-let actualSeconds = 0;
-let beginWorkout = new Audio('pune link');
-let restWorkout = new Audio('pune link');
+let totalSeconds = 0;
+let beginAudio = new Audio('file:///C:/Users/gliza/Desktop/Stopwatch%20cul/Stapwaci/Begin_workout.mp3');
+let restAudio = new Audio('file:///C:/Users/gliza/Desktop/Stopwatch%20cul/Stapwaci/Rest.mp3');
+let audioToPlay = beginAudio;
+let soundChooser = 0;
+let workoutPeriod;
+let restPeriod;
+
+function mere(){
+    workoutPeriod = document.getElementById("workoutPeriod").value;
+    restPeriod = document.getElementById("restPeriod").value;
+}
+
+window.onload = function() {
+    mere();
+};
 
 //Stopwatch code + display
 function stopWatch(){
 
-        seconds++;
-        actualSeconds++;
-        milliseconds = 0;
-        if(seconds == 60){
-            minutes++;
-            seconds = 0;
-            if(minutes == 60){
-                hours++;
-                minutes = 0;
-            }
-        }
+    //SFX
+    if(totalSeconds == soundChooser){
 
-        displaySeconds = seconds;
-        displayMinutes = minutes;
-        displayHours = hours;
+        audioToPlay.play();
+        if(audioToPlay == beginAudio){
 
-        if(displaySeconds<10){
-            displaySeconds = "0" + seconds.toString();
+            soundChooser += parseInt(workoutPeriod, 10);
+            audioToPlay = restAudio;
+
+        }else if(audioToPlay == restAudio){
+
+            soundChooser += parseInt(restPeriod, 10);
+            audioToPlay = beginAudio;
         }
-        if(displayMinutes<10){
-            displayMinutes = "0" + minutes.toString();
+    }
+
+    seconds++;
+    totalSeconds++;
+    
+
+    //turning seconds accordingly
+    if(seconds == 60){
+        minutes++;
+        seconds = 0;
+        if(minutes == 60){
+            hours++;
+            minutes = 0;
         }
-        if(displayHours<10){
-            displayHours = "0" + hours.toString();
-        }
+    }
+
+    displaySeconds = seconds;
+    displayMinutes = minutes;
+    displayHours = hours;
+
+    //displaying the seconds
+    if(displaySeconds<10){
+        displaySeconds = "0" + seconds.toString();
+    }
+    if(displayMinutes<10){
+        displayMinutes = "0" + minutes.toString();
+    }
+    if(displayHours<10){
+        displayHours = "0" + hours.toString();
+    }
 
     document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+
+
 }
 
 //the buttons
@@ -65,6 +99,9 @@ function reset(){
     seconds = 0;
     minutes = 0;
     hours = 0;
+    totalSeconds = 0;
+    soundChooser = 0;
+    audioToPlay = beginAudio;
     document.getElementById("display").innerHTML = "00:00:00";
 }
 
@@ -78,5 +115,3 @@ function checkKeyPress(key){
     }
     
 }
-
-beginWorkout.play();

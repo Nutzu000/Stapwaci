@@ -1,12 +1,12 @@
 
-p{
+.inputPart{
 color:#007acc;
-font-size: 100px;
+font-size: 50px;
 }
 
 #display{
     color:#007acc;
-    font-size: 100px;
+    font-size: 200px;
     text-align: center;
 }
 
