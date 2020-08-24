@@ -94,6 +94,7 @@ function startStop(){
         document.getElementById("startStop").innerHTML = "Start";
         startStopStatus = "stopped";
     }
+    initialisePeriod();
 }
 
 function reset(){
@@ -104,6 +105,7 @@ function reset(){
     soundChooser = 0;
     audioToPlay = beginAudio;
     document.getElementById("display").innerHTML = "00:00:00";
+    initialisePeriod();
 }
 
 function volume(){
