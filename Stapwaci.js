@@ -7,23 +7,24 @@ let displayMinutes = 0;
 let displayHours = 0;
 
 let interval = null;
-let status = "stopped";
+let startStopStatus = "stopped";
+let volumeStatus = "quiet";
 
 let totalSeconds = 0;
-let beginAudio = new Audio('file:///C:/Users/gliza/Desktop/Stopwatch%20cul/Stapwaci/Begin_workout.mp3');
-let restAudio = new Audio('file:///C:/Users/gliza/Desktop/Stopwatch%20cul/Stapwaci/Rest.mp3');
+let beginAudio = new Audio('./BeginWorkout.mp3');
+let restAudio = new Audio('./Rest.mp3');
 let audioToPlay = beginAudio;
 let soundChooser = 0;
 let workoutPeriod;
 let restPeriod;
 
-function mere(){
+function initialisePeriod(){
     workoutPeriod = document.getElementById("workoutPeriod").value;
     restPeriod = document.getElementById("restPeriod").value;
 }
 
 window.onload = function() {
-    mere();
+    initialisePeriod();
 };
 
 //Stopwatch code + display
@@ -82,16 +83,16 @@ function stopWatch(){
 //the buttons
 function startStop(){
 
-    if(status === "stopped"){
+    if(startStopStatus === "stopped"){
 
         interval = window.setInterval(stopWatch, 1000);
         document.getElementById("startStop").innerHTML = "Stop";
-        status = "start";
+        startStopStatus = "start";
     }else{
 
         window.clearInterval(interval);
         document.getElementById("startStop").innerHTML = "Start";
-        status = "stopped";
+        startStopStatus = "stopped";
     }
 }
 
@@ -105,6 +106,21 @@ function reset(){
     document.getElementById("display").innerHTML = "00:00:00";
 }
 
+function volume(){
+    if(volumeStatus == "quiet"){
+        volumeStatus = "loud";
+        beginAudio = new Audio('./LouderBeginWorkout.mp3');
+        restAudio = new Audio('./LouderRest.mp3');
+        document.getElementById("volume").innerHTML = "Quiet";
+    }else if(volumeStatus == "loud"){
+        volumeStatus = "quiet";
+        beginAudio = new Audio('./BeginWorkout.mp3');
+        restAudio = new Audio('./Rest.mp3');
+        document.getElementById("volume").innerHTML = "Loud";
+    }
+}
+
+//key shortcuts
 window.addEventListener("keydown", checkKeyPress, false);
 
 function checkKeyPress(key){
